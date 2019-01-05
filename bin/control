@@ -1,0 +1,66 @@
+#!/bin/bash
+
+cd $(dirname $0)/..
+ROOT_DIR=$PWD
+BIN_DIR=$ROOT_DIR/bin
+LOG_DIR=${ROOT_DIR}/log
+VAR_DIR=${ROOT_DIR}/var
+BIN_FILE=${ROOT_DIR}/bin/server.py
+LOG_FILE=${ROOT_DIR}/log/server.log
+PID_FILE=${ROOT_DIR}/var/server.pid
+
+PORT=8000
+
+start() {
+    echo "starting server ..."
+    
+    if [ ! -d $LOG_DIR ]
+    then
+        mkdir $LOG_DIR
+    fi
+    if [ ! -d $VAR_DIR ]
+    then
+        mkdir $VAR_DIR
+    fi
+
+    nohup python $BIN_FILE \
+        --port=$PORT \
+        >$LOG_DIR/nohup.out 2>&1 &
+
+    ret=$?
+    pid=$! 
+    if [ $ret -eq 0 ]; then
+        echo $pid > $PID_FILE
+        echo "server start success"
+    else
+        echo "server start failed"
+    fi
+}
+
+stop() {
+    echo "stopping server ..."
+    kill -9 `cat ${PID_FILE}` >/dev/null 2>&1
+    #ps -ef | grep "server.py --port=$PORT" | grep -v "grep" | awk '{print $2}' | xargs kill -9 >/dev/null 2>&1
+    rm $PID_FILE
+    echo "server stop success"
+}
+
+case "$1" in
+start)
+    #stop
+    start
+    ;;
+
+restart)
+    stop
+    start
+    ;;
+
+stop)
+    stop
+    ;;
+
+*)
+    echo "Usage: $0 {start|stop|restart}"
+    exit 1
+esac
