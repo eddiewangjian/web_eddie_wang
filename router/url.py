@@ -7,8 +7,10 @@ sys.setdefaultencoding("utf-8")
 this_file_path = os.path.dirname(os.path.abspath(__file__))
 sys.path.append(this_file_path + '/../')
 
+from handler.login import LoginHandler
 from handler.index import IndexHandler
 
 url = [
-    (r'/', IndexHandler),
+    (r'/', LoginHandler),
+    (r'/index', IndexHandler),
 ]
