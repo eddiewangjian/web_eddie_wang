@@ -5,8 +5,8 @@ from tornado.options import define, options
 import tornado.httpserver
 
 this_file_path = os.path.dirname(os.path.abspath(__file__))
-sys.path.append(this_file_path + '/../router/')
-from application import application
+sys.path.append(this_file_path + '/../')
+from router.application import application
 
 define("port", default=8000, help="listen port", type=int)
 

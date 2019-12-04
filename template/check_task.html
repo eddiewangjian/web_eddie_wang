@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>flow_master</title>
+</head>
+<body>
+    <hr>
+    <h2>调度处理机器查询结果:</h2>
+    {% if check_res != None and len(check_res) != 0 %}
+        <p>执行环境: {{environment}}</p> 
+        <table border="1">
+            <tr style="background-color:#C8C8C8">
+                <td>node_id</td>
+                <td>module</td>
+                <td>status</td>
+                <td>start_time</td>
+                <td>end_time</td>
+                <td>proc_addr</td>
+                <td>flow_version</td>
+            </tr>
+
+            {% for row in check_res %}
+            <tr>
+                {% for item in row %}
+                    <td>{{ (item) }}</td>
+                {% end %}
+            </tr>
+            {% end %}
+        </table>
+    {% else %}
+        近一个月记录中无此任务
+    {% end %}
+    <hr>
+    
+    <script src="{{static_url("js/jquery-3.3.1.min.js")}}"></script>
+    <script src="{{static_url("js/script.js")}}"></script>
+</body>
