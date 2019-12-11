@@ -3,12 +3,22 @@ import sys
 import tornado.web
 
 this_file_path = os.path.dirname(os.path.abspath(__file__))
-from dao.mysql import DaoMysql
+sys.path.append(this_file_path + '/../../')
+
+from lib.util.common_error import ErrorCode
+from lib.util.common_log import Log
+from lib.util.common_mysql import Mysql
+from lib.util.common_conf import Conf
+from lib.dao.dao_mysql_tm_test import DaoMysqlTmTest
 
 class IndexHandler(tornado.web.RequestHandler):
     def get(self):
-        username = self.get_argument("user")
-        sql = "select * from users where username = '{0}'".format(username)
-        user_infos = DaoMysql.query(sql)
-        self.render("index.html", user_infos)
+        self.render("index.html")
+
+    def post(self):
+        self.render("index.html")
+
+
+
+
 

@@ -3,7 +3,7 @@ import sys
 import tornado.web
 
 this_file_path = os.path.dirname(os.path.abspath(__file__))
-from dao.mysql import DaoMysql
+from lib.dao.mysql import DaoMysql
 
 class LoginHandler(tornado.web.RequestHandler):
     def get(self):
