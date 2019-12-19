@@ -27,7 +27,7 @@ class DaoMysqlTmOld:
 
     def get_node_info(self, taskid):
         """根据任务id获取所有子任务处理信息"""
-        sql = "select task_id , 'no support', status, start_ts, end_ts, host, 'no support' from detail_task_info_table where task_id like '{0}%' and sub_task_num = 0".format(taskid)
+        sql = "select task_id, 'no support', status, start_ts, end_ts, host, 'no support' from detail_task_info_table where task_id like '{0}%' and sub_task_num = 0 order by task_id".format(taskid)
         Log.debug("get_node_info. sql={}".format(sql))
         ret = self.query_mysql(sql)
         if not ret is None:
