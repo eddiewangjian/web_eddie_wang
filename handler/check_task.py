@@ -32,11 +32,11 @@ class CheckTaskHandler(tornado.web.RequestHandler):
             self.render("check_task.html", environment='online', check_res=info)
             return
 
-        dao = DaoMysqlTmOld()
-        info = dao.get_node_info(task_id)
-        if info is not None and len(info) > 0:
-            self.render("check_task.html", environment='online_old_framework', check_res=info)
-            return
+        #dao = DaoMysqlTmOld()
+        #info = dao.get_node_info(task_id)
+        #if info is not None and len(info) > 0:
+        #    self.render("check_task.html", environment='online_old_framework', check_res=info)
+        #    return
 
         self.render("check_task.html", environment=None, check_res=None)
 

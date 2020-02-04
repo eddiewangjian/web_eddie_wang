@@ -27,7 +27,7 @@ class DaoMysqlTmTest:
 
     def get_node_info(self, taskid):
         """根据任务id获取所有子任务处理信息"""
-        sql = "select node_id, node_desc, status, start_time, end_time, proc_addr, real_version from node_info where node_id like '{0}%' and node_type='flow' order by node_id".format(taskid)
+        sql = "select node_id, node_desc, status, start_time, end_time, proc_addr, real_version from node_info where root_node_id = '{0}' and node_type='flow' order by node_id".format(taskid)
         Log.debug("get_node_info. sql={}".format(sql))
         ret = self.query_mysql(sql)
         if not ret is None:
